@@ -1,4 +1,4 @@
-DEFAULT_HOST = 'dev.rst2pdf-net-hrd.appspot.com'
+DEFAULT_HOST = 'nullpobug-sandbox-hrd.appspot.com'
 DEFAULT_SCHEME = 'http'
 
 

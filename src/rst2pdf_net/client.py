@@ -14,11 +14,11 @@ class AccessToken(object):
 
 
 class DocumentMetaData(object):
-    def __init__(self, id, create_at=None, status=None,
+    def __init__(self, id, created_at=None, status=None,
                  error=None, download_url=None, page_size=None,
                  embed_font=False, margin_style=None):
         self.id = id
-        self.create_at = create_at
+        self.created_at = created_at
         self.status = status
         self.error = error
         self.download_url = download_url
@@ -49,7 +49,7 @@ class Client(object):
             payload = json.dumps(data)
         else:
             payload = None
-        return requests.post(url, data=payload, headers=headers, **kwargs)
+        return requests.post(url, data=payload, headers=_headers, **kwargs)
 
     def build_url(self, path):
         return '{scheme}://{host}{path}'.format(
@@ -85,8 +85,8 @@ class Client(object):
             'embed_font': embed_font,
             'margin_style': margin_style})
         data = response.json()
-        if data is None:
-            raise exceptions.APIError
+        if data is None or response.status_code != 200:
+            raise exceptions.APIError(data or response.text)
         return data['id']
 
     def get_document(self, document_id):
@@ -104,7 +104,7 @@ class Client(object):
             raise exceptions.APIError
         return self.document_meta_data_class(
             id=data['id'],
-            create_at=data['create_at'],
+            created_at=data['created_at'],
             status=data['status'],
             error=data['error'],
             download_url=data['download_url'],
