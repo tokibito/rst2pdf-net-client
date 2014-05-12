@@ -18,6 +18,7 @@ Require
 =======
 
 * Support Python version is 2.6, 2.7, 3.3, 3.4.
+* Requests
 
 Install
 =======
