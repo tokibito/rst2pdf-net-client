@@ -4,6 +4,7 @@ rst2pdf.net Client Library
 
 :Author: Shinya Okano <tokibito@gmail.com>
 :PyPI: https://pypi.python.org/pypi/rst2pdf-net-client
+:GitHub: https://github.com/tokibito/rst2pdf-net-client
 
 Overview
 ========
