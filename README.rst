@@ -11,7 +11,7 @@ Overview
 
 rst2pdf-net-client is a client library for `rst2pdf.net <http://www.rst2pdf.net/>`_ .
 
-The rst2pdf.net is an online service it convert reStructuredText to PDF document using `rst2pdf <https://code.google.com/p/rst2pdf/>`_ .
+The rst2pdf.net is an online service it convert to PDF from reStructuredText document with using `rst2pdf <https://code.google.com/p/rst2pdf/>`_ .
 
 rst2pdf-net-client includes command line utility. It run without rst2pdf and these dependencies.
 
