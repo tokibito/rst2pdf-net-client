@@ -2,12 +2,12 @@ import sys
 
 
 def urllib_module():
-    if sys.hexversion >= 0x020600F0:
-        import urllib2
-        return urllib2
-    else:
+    if sys.hexversion >= 0x030000F0:
         import urllib
         return urllib
+    else:
+        import urllib2
+        return urllib2
 
 
 def make_request(url, headers=None):
