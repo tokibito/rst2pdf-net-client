@@ -19,7 +19,6 @@ Require
 =======
 
 * Support Python version is 2.6, 2.7, 3.3, 3.4.
-* `requests <https://pypi.python.org/pypi/requests>`_
 
 Install
 =======

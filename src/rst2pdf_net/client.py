@@ -1,9 +1,9 @@
 import json
-
-import requests
+from urllib import urlencode
 
 from . import const
 from . import exceptions
+from . import utils
 
 
 class AccessToken(object):
@@ -38,18 +38,34 @@ class Client(object):
         self.access_token = access_token
         self.api_paths = api_paths or const.API_PATHS
 
-    def _get(self, url, params=None, **kwargs):
-        return requests.get(url, params=params, **kwargs)
+    def _get(self, url, params=None, headers=None):
+        """HTTP GET request
+        """
+        _headers = {}
+        if headers:
+            _headers.update(headers)
+        if params:
+            url += '?{}'.format(urlencode(params))
+        request = utils.make_request(url, headers=_headers.items())
+        return utils.urlopen(request)
 
-    def _post(self, url, data=None, headers=None, **kwargs):
-        _headers = {'content-type': 'application/json'}
+    def _post(self, url, data=None, headers=None):
+        """HTTP POST request
+        """
+        _headers = {'Content-type': 'application/json'}
         if headers:
             _headers.update(headers)
         if data:
             payload = json.dumps(data)
         else:
             payload = None
-        return requests.post(url, data=payload, headers=_headers, **kwargs)
+        request = utils.make_request(url, headers=_headers.items())
+        return utils.urlopen(request, data=payload)
+
+    def parse_response_json(self, response):
+        if response.headers['Content-type'] != 'application/json':
+            return
+        return json.loads(response.read())
 
     def build_url(self, path):
         return '{scheme}://{host}{path}'.format(
@@ -60,7 +76,7 @@ class Client(object):
         """
         url = self.build_url(self.api_paths['get_access_token'])
         response = self._post(url)
-        data = response.json()
+        data = self.parse_response_json(response)
         if data is None:
             return None
         return self.access_token_class(
@@ -84,9 +100,9 @@ class Client(object):
             'page_size': page_size,
             'embed_font': embed_font,
             'margin_style': margin_style})
-        data = response.json()
-        if data is None or response.status_code != 200:
-            raise exceptions.APIError(data or response.text)
+        data = self.parse_response_json(response)
+        if data is None:
+            raise exceptions.APIError(data)
         return data['id']
 
     def get_document(self, document_id):
@@ -99,7 +115,7 @@ class Client(object):
             self.api_paths['get_document'].format(id=document_id))
         response = self._get(url, params={
             'access_token': self.access_token.token})
-        data = response.json()
+        data = self.parse_response_json(response)
         if data is None:
             raise exceptions.APIError
         return self.document_meta_data_class(
@@ -117,5 +133,5 @@ class Client(object):
         """
         url = self.build_url(
             self.api_paths['download_file'].format(id=document_id))
-        response = self._get(url, stream=True)
-        return response.raw
+        response = self._get(url)
+        return response

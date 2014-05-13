@@ -23,7 +23,6 @@ setup(
     author='Shinya Okano',
     author_email='tokibito@gmail.com',
     url='https://github.com/tokibito/rst2pdf-net-client',
-    install_requires=['requests'],
     entry_points={
         'console_scripts': [
             'rst2pdf-net=rst2pdf_net.command:main',
