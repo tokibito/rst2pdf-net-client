@@ -45,7 +45,10 @@ class Client(object):
         if headers:
             _headers.update(headers)
         if params:
-            url += '?{}'.format(urlencode(params))
+            _params = {}
+            for key, value in params.items():
+                _params[utils.force_encode(key)] = utils.force_encode(value)
+            url += '?{}'.format(urlencode(_params))
         request = utils.make_request(url, headers=_headers.items())
         return utils.urlopen(request)
 

@@ -17,10 +17,16 @@ def make_request(url, headers=None):
     request = urllib.Request(url)
     if headers:
         for key, value in headers:
-            request.add_header(key, value)
+            request.add_header(
+                force_encode(key),
+                force_encode(value))
     return request
 
 
 def urlopen(request, data=None):
     urllib = urllib_module()
     return urllib.urlopen(request, data)
+
+
+def force_encode(text, encoding='utf-8', errors='replace'):
+    return text.encode(encoding, errors=errors)
