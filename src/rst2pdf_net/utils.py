@@ -3,8 +3,8 @@ import sys
 
 def urllib_module():
     if sys.hexversion >= 0x030000F0:
-        import urllib
-        return urllib
+        import urllib.request
+        return urllib.request
     else:
         import urllib2
         return urllib2
@@ -29,4 +29,4 @@ def urlopen(request, data=None):
 
 
 def force_encode(text, encoding='utf-8', errors='replace'):
-    return text.encode(encoding, errors=errors)
+    return text.encode(encoding, errors)
