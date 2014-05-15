@@ -1,6 +1,15 @@
 import sys
 
 
+def make_config_parser():
+    if sys.hexversion >= 0x030000F0:
+        import configparser
+        return configparser.ConfigParser()
+    else:
+        import ConfigParser
+        return ConfigParser.ConfigParser()
+
+
 def urllib_module():
     if sys.hexversion >= 0x030000F0:
         import urllib.request

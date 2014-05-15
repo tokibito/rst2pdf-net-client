@@ -1,6 +1,22 @@
 from unittest import TestCase
 
 
+class MakeConfigParserTest(TestCase):
+    """make_config_parser
+    """
+    def _getTarget(self):
+        from rst2pdf_net import utils
+        return utils.make_config_parser
+
+    def _callFUT(self):
+        target = self._getTarget()
+        return target()
+
+    def test(self):
+        result = self._callFUT()
+        self.assertEqual(result.__class__.__name__, 'ConfigParser')
+
+
 class UrllibModuleTest(TestCase):
     """urllib_module
     """
