@@ -16,6 +16,10 @@ class UrllibModuleTest(TestCase):
         result = self._callFUT()
         self.assertTrue(hasattr(result, 'urlopen'))
 
+    def test_has_request(self):
+        result = self._callFUT()
+        self.assertTrue(hasattr(result, 'Request'))
+
 
 class MakeRequestTest(TestCase):
     """make_request
@@ -34,6 +38,8 @@ class MakeRequestTest(TestCase):
 
 
 class ForceEncodeTest(TestCase):
+    """force_encode
+    """
     def _getTarget(self):
         from rst2pdf_net import utils
         return utils.force_encode
