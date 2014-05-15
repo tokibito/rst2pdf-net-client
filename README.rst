@@ -18,7 +18,7 @@ rst2pdf-net-client includes command line utility. It run without rst2pdf and the
 Require
 =======
 
-* Support Python version is 2.6, 2.7, 3.3, 3.4.
+* Support Python version is 2.7, 3.3, 3.4.
 
 Install
 =======
